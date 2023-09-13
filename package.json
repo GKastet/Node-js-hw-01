@@ -1,0 +1,25 @@
+{
+  "name": "node-js-hw-01",
+  "version": "1.0.0",
+  "description": "node-js-hw-01",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GKastet/Node-js-hw-01.git"
+  },
+  "author": "GKastet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GKastet/Node-js-hw-01/issues"
+  },
+  "homepage": "https://github.com/GKastet/Node-js-hw-01#readme",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
