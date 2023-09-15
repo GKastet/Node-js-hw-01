@@ -1,37 +1,41 @@
-const contacts = require('./contacts')
+const contacts = require("./contacts");
+const { Command } = require("commander");
+const program = new Command();
 
-const invokeAction = async({action, id, name, email, phone})=> {
-    switch (action){
-        case 'listContacts':
-            const allContacts = await contacts.listContacts()
-            console.log(allContacts);
-            break;
-        case 'getContactById':
-            const singleContact = await contacts.getContactById(id);
-            console.log(singleContact);
-            break;
-        
-        case 'removeContact':            
-            const removedContact = await contacts.removeContact(id);
-            console.log(removedContact);
-            
-        break;
-        
-        case 'addContact':
-            const newContact = await contacts.addContact({name, email, phone})
-            console.log(newContact);
-            break;
+const invokeAction = async ({ action, id, name, email, phone }) => {
+  switch (action) {
+    case "list":
+      const allContacts = await contacts.listContacts();
+      console.log(allContacts);
+      break;
+    case "get":
+      const singleContact = await contacts.getContactById(id);
+      console.log(singleContact);
+      break;
 
-        default:
-            console.log('unknown action');
-    }
+    case "add":
+      const newContact = await contacts.addContact({ name, email, phone });
+      console.log(newContact);
+      break;
+    case "remove":
+      const removedContact = await contacts.removeContact(id);
+      console.log(removedContact);
 
-}
+      break;
 
-//invokeAction({action: 'listContacts'})
-// invokeAction({action: 'getContactById', id:'drsAJ4SHPYqZeG-83QTVW'})
-//invokeAction({action: 'addContact', name:'Max', email: 'max@max.com', phone: '+380'})
-//invokeAction({action: 'removeContact', id:"3b77a997-f622-40e0-a74e-48738922cabb"})
+    default:
+      console.log("unknown action");
+  }
+};
 
-console.log(process.argv);
+program
+  .option("-a, --action <type>", "choose action")
+  .option("-i, --id <type>", "user id")
+  .option("-n, --name <type>", "user name")
+  .option("-e, --email <type>", "user email")
+  .option("-p, --phone <type>", "user phone");
 
+program.parse(process.argv);
+const argv = program.opts();
+console.log(argv);
+invokeAction(argv);
