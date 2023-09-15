@@ -1,18 +1,37 @@
-const date = new Date();
-// console.log('Wellcome to Node.js!');
-// console.log(`Year: ${date.getFullYear()}` );
+const contacts = require('./contacts')
 
-// const fs = require("fs/promises");
+const invokeAction = async({action, id, name, email, phone})=> {
+    switch (action){
+        case 'listContacts':
+            const allContacts = await contacts.listContacts()
+            console.log(allContacts);
+            break;
+        case 'getContactById':
+            const singleContact = await contacts.getContactById(id);
+            console.log(singleContact);
+            break;
+        
+        case 'removeContact':            
+            const removedContact = await contacts.removeContact(id);
+            console.log(removedContact);
+            
+        break;
+        
+        case 'addContact':
+            const newContact = await contacts.addContact({name, email, phone})
+            console.log(newContact);
+            break;
 
-// const readFile = async() => {
-//     const data = await fs.readFile('./db/text.txt');
-//     console.log(data);
-//   }
-//   readFile()
+        default:
+            console.log('unknown action');
+    }
 
-const {listContacts} = require('./contacts')
-const {getContactById} = require('./contacts')
-const listOfContacts = listContacts()
-const contactById = getContactById("drsAJ4SHPYqZeG-83QTVW")
- console.log(listOfContacts);
- console.log(contactById);
+}
+
+//invokeAction({action: 'listContacts'})
+// invokeAction({action: 'getContactById', id:'drsAJ4SHPYqZeG-83QTVW'})
+//invokeAction({action: 'addContact', name:'Max', email: 'max@max.com', phone: '+380'})
+//invokeAction({action: 'removeContact', id:"3b77a997-f622-40e0-a74e-48738922cabb"})
+
+console.log(process.argv);
+
